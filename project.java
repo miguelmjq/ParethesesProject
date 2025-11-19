@@ -1,3 +1,4 @@
+
 //  Class author:  Miguel Mirabal Q
 //  Date created:  11/7/25
 //  General description: the project takes a string of parentheses and declares whether it is valid or not
@@ -11,12 +12,13 @@ class project {
         System.out.println(isValid("{}[())()(]")); // false
         System.out.println(isValid("(){}{")); // false
         System.out.println(isValid("([)]")); // false
-        System.out.println(isValid("([{}([)])]")); // false
-
+        System.out.println(isValid("((")); // false
+        System.out.println(isValid("]]")); // false
+        System.out.println(isValid("(([]))")); // true
     }
 
-    //precon: a string that contains only the characters 
-    //poscon: a boolean true or false that declares if it is valid
+    // precon: a string that contains only the characters
+    // poscon: a boolean true or false that declares if it is valid
     public static boolean isValid(String input) {
 
         int b, n, d = 0;
@@ -36,11 +38,17 @@ class project {
             b = et.lastIndexOf("(");
             n = et.lastIndexOf("[");
             d = et.lastIndexOf("{");
+            if (b==-1&n==-1&d==-1){
+                return false;
+            }
             index = Math.max(b, Math.max(n, d));
+            if (index+1>et.length()-1){
+                return false;
+            }
             c = et.substring(index, index + 1);
             c2 = et.substring(index + 1, index + 2);
             if (et.length() == 1) {
-                return false;
+                return false;  
             }
             if (c.equals("(")) {
 
@@ -50,8 +58,7 @@ class project {
                 } else {
                     return false;
                 }
-            }
-            else if (c.equals("[")) {
+            } else if (c.equals("[")) {
 
                 if (c2.equals("]")) {
                     et.delete(index, index + 2);
@@ -59,8 +66,7 @@ class project {
                 } else {
                     return false;
                 }
-            }
-            else if (c.equals("{")) {
+            } else if (c.equals("{")) {
 
                 if (c2.equals("}")) {
                     et.delete(index, index + 2);
